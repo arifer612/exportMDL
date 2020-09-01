@@ -136,8 +136,8 @@ def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True,
                     'type': show.find(class_='sort4').text,
                     'rating': float(show.find(class_='score').text)
                     if show.find(class_='score') or float(show.find(class_='score').text) != 0.0 else None,
-                    'progress': int(show.find(class_='episode-seen').text),
-                    'total': int(show.find(class_='episode-total').text),
+                    'progress': int(show.find(class_='episode-seen').text) if show.find(class_='episode-seen') else 0,
+                    'total': int(show.find(class_='episode-total').text) if show.find(class_='episode-seen') else 0,
                 } for show in lists[key].tbody.find_all('tr')
             }
         except AttributeError:
