@@ -7,7 +7,7 @@ Nothing needs to be installed as everything is packaged into the master branch
 
 
 ### Installation
-Installation can be done either by downloading the files directly from GitHub or by cloning it
+Installation can be done either by downloading the files directly from GitHub (Code -> Download ZIP) or by cloning it
     
     git clone https://github.com/arifer612/exportMDL
     
