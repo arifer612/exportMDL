@@ -47,11 +47,14 @@ Set login details in _config.conf_ as in the following manner:
     username = user@email.com
     password = P@sSw0rd
 
-You may opt to leave these blank.
+You may opt to leave these blank. 
 
 ## Importing export file
 The drama list will be exported as a _.tsv_ file. You may choose to import the files onto your local data management
 software such as Excel, LibreOffice Calc, or Google Sheets.
+
+### Using Microsoft Excel
+Simply drag and drop the .tsv file Microsoft Excel and it will automatically import the data.
 
 ### Using Google Sheets
 When importing into Google Sheets, the import manager will pop up to query the necessary import rules. Use the 
