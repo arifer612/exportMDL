@@ -1,4 +1,4 @@
-#!/venv/bin/env python
+#!/venv/bin/python
 
 import os
 import requests
@@ -33,6 +33,7 @@ def login():
                                        'password': loginDetails[1]})
         try:
             cookies = response.request._cookies
+            token = cookies['jl_sess']
             loginDetails = None
         except KeyError:
             cookies = None
