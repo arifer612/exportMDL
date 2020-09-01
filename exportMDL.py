@@ -86,17 +86,8 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=
 
 def paramHeaders(keys, refererURL, undef=False):
     headers = {
-        'accept': 'application/json, text/javascript, */*; q=0.01',
-        'accept_encoding': 'gzip, deflate',
-        'accept_language': 'en-US,en;q=0.9,ja;q=0.8,zh-TW;q=0.7,zh;q=0.6',
-        'dnt': '1',
         'origin': siteRoot,
         'referer': refererURL,
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/84.0.4147.89 Safari/537.36'
     }
     parameters = {
         'token': keys['jl_sess'],
@@ -105,7 +96,7 @@ def paramHeaders(keys, refererURL, undef=False):
     return headers, parameters
 
 
-def dramaList(keys, watching=True, complete=True, hold=True, drop=True, plan_to_watch=True, not_interested=True,
+def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True, drop=True, not_interested=True,
               suppress=False):
     profileLink = f"{siteRoot}/profile"
     headers, parameters = paramHeaders(keys, profileLink)
@@ -114,9 +105,9 @@ def dramaList(keys, watching=True, complete=True, hold=True, drop=True, plan_to_
     lists = {
         'watching': listSoup.find(id='list_1') if watching else None,
         'completed': listSoup.find(id='list_2') if complete else None,
-        'on_hold': listSoup.find(id='list_3') if hold else None,
-        'dropped': listSoup.find(id='list_4') if drop else None,
-        'plan_to_watch': listSoup.find(id='list_5') if plan_to_watch else None,
+        'plan_to_watch': listSoup.find(id='list_3') if plan_to_watch else None,
+        'on_hold': listSoup.find(id='list_4') if hold else None,
+        'dropped': listSoup.find(id='list_5') if drop else None,
         'not_interested': soup(f"{listLink}/not_interested", headers=headers, cookies=keys).find(id='list_6')
         if not_interested else None
     }
@@ -154,15 +145,15 @@ def dramaList(keys, watching=True, complete=True, hold=True, drop=True, plan_to_
 
     totalShows = len([i for j in lists if lists[j] for i in lists[j]])
     for key in [i for i in lists if lists[i]]:
-        for i, showID in enumerate(lists[key], start=i if 'i' in locals() else 1):
+        for i, showID in enumerate(lists[key], start=i+1 if 'i' in locals() else 1):
             lists[key][showID].update(userInfo(showID))
             printProgressBar(i, totalShows, prefix=f'Retrieving {i}/{totalShows}') if not suppress else True
     return lists
 
 
-def exportList(fileName, watching, complete, hold, drop, plan_to_watch, not_interested):
+def exportList(fileName, watching, complete, plan_to_watch, hold, drop, not_interested):
     keys = login()
-    myDramaList = dramaList(keys, watching, complete, hold, drop, plan_to_watch, not_interested)
+    myDramaList = dramaList(keys, watching, complete, plan_to_watch, hold, drop, not_interested)
     with open(os.path.join(logDir, f"{fileName}.tsv"), 'w') as e:
         e.write(f"Title\tStatus\tEpisodes watched\tTotal episodes\tCountry of Origin\t"
                 f"Show type\tRating\tStarted on\tEnded on\tRe-watched\n")
@@ -221,7 +212,7 @@ def main(argv):
                 sys.exit()
     except getopt.GetoptError:
         pass
-    exportList(fileName, watching, complete, hold, drop, plan_to_watch, not_interested)
+    exportList(fileName, watching, complete, plan_to_watch, hold, drop, not_interested)
 
 
 if __name__ == '__main__':
