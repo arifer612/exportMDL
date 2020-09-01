@@ -3,7 +3,7 @@ Python script to export drama lists from MyDramaList.com without the need for an
 
 ## Setup
 ### Requirements
-Nothing needs to be installed as everything is packaged into the master branch
+Python >3.6
 
 
 ### Installation
@@ -18,7 +18,7 @@ After cloning the source files, you may want to make sure that the required depe
 ## Documentation
 #### Exporting your drama list
 
-    venv/bin/python exportMDL.py
+    python3 exportMDL.py
     
 Optional arguments you may use:
     
@@ -33,8 +33,8 @@ Optional arguments you may use:
     
 ##### Examples
 
-    venv/bin/python exportMDL.py -f ShowsWatched -o watching,completed
-    venv/bin/python exportMDL.py -f MainDramaList -e not_interested
+    python3 exportMDL.py -f ShowsWatched -o watching,completed
+    python3 exportMDL.py -f MainDramaList -e not_interested
     
 
 #### Configuration
