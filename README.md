@@ -34,7 +34,10 @@ Optional arguments you may use:
 ##### Examples
 
     python3 exportMDL.py -f ShowsWatched -o watching,completed
+Saves the 'Currently Watching' and 'Completed' lists as ShowsWatched.tsv
+
     python3 exportMDL.py -f MainDramaList -e not_interested
+Saves everything on your drama list except for those that are marked under the 'Not Interested' list as MainDramaList.tsv
     
 
 #### Configuration
