@@ -13,7 +13,7 @@ Installation can be done either by downloading the files directly from GitHub (C
     
 After cloning the source files, you may want to make sure that the required dependencies have been installed with
     
-    python3-pip install -r requirements.txt
+    pip3 install -r requirements.txt
 
 ## Documentation
 #### Exporting your drama list
