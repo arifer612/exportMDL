@@ -141,7 +141,7 @@ def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True,
                     'total': int(show.find(class_='episode-total').text) if show.find(class_='episode-seen') else 0,
                 } for show in lists[key].tbody.find_all('tr')
             }
-        except AttributeError:
+        except KeyError:
             lists[key] = None
 
     totalShows = len([i for j in lists if lists[j] for i in lists[j]])
@@ -152,14 +152,14 @@ def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True,
     return lists
 
 
-def exportList(fileName, watching, complete, plan_to_watch, hold, drop, not_interested):
+def exportList(fileName, watching, completed, plan_to_watch, hold, drop, not_interested):
     keys = login()
-    myDramaList = dramaList(keys, watching, complete, plan_to_watch, hold, drop, not_interested)
-    with open(os.path.join(logDir, f"{fileName}.tsv"), 'w') as e:
+    myDramaList = dramaList(keys, watching, completed, plan_to_watch, hold, drop, not_interested)
+    with open(os.path.join(logDir, f"{fileName}.tsv"), 'w', encoding='utf-8-sig') as e:
         e.write(f"Title\tStatus\tEpisodes watched\tTotal episodes\tCountry of Origin\t"
                 f"Show type\tRating\tStarted on\tEnded on\tRe-watched\n")
         e.writelines([
-            f"{show['title']}\t{status}\t{show['progress']}\t{show['total']}\t{show['country']}\t"
+            f"{show['title']}\t{status.replace('_',' ').capitalize()}\t{show['progress']}\t{show['total']}\t{show['country']}\t"
             f"{show['type']}\t{show['rating']}\t{str(show['date-start']).split(' ')[0] if show['date-start'] else ''}\t"
             f"{str(show['date-end']).split(' ')[0] if show['date-end'] else ''}\t{show['rewatched']}\n"
             for status in myDramaList if myDramaList[status] for show in myDramaList[status].values()
@@ -169,7 +169,7 @@ def exportList(fileName, watching, complete, plan_to_watch, hold, drop, not_inte
 
 def main(argv):
     fileName = 'MyDramaList'
-    watching = complete = hold = drop = plan_to_watch = not_interested = True
+    watching = completed = hold = drop = plan_to_watch = not_interested = True
     try:
         opts, args = getopt.getopt(argv, "f:he:o:", ['filename=', 'help', 'except=', 'only='])
         for opt, arg in opts:
@@ -178,7 +178,7 @@ def main(argv):
             if opt in ['-e', '--except']:
                 exceptions = arg.split(',')
                 watching -= 'watching' in exceptions
-                complete -= 'complete' in exceptions
+                completed -= 'completed' in exceptions
                 hold -= 'hold' in exceptions
                 drop -= 'drop' in exceptions
                 plan_to_watch -= 'plan_to_watch' in exceptions
@@ -186,7 +186,7 @@ def main(argv):
             if opt in ['-o', '--only']:
                 overwrite = arg.split(',')
                 watching = 'watching' in overwrite
-                complete = 'complete' in overwrite
+                completed = 'completed' in overwrite
                 hold = 'hold' in overwrite
                 drop = 'drop' in overwrite
                 plan_to_watch = 'plan_to_watch' in overwrite
@@ -203,7 +203,7 @@ def main(argv):
                       '-f     Specifies filename\n\n'
                       '-e     Specifies list exceptions. Exceptions MUST be separated by a comma without spaces.\n'
                       '       The available options are:\n'
-                      '       (watching, complete, hold, drop, plan_to_watch, not_interested)\n'
+                      '       (watching, completed, hold, drop, plan_to_watch, not_interested)\n'
                       '\n'
                       '-h     Shows the help page'
                       '\n'
@@ -213,7 +213,7 @@ def main(argv):
                 sys.exit()
     except getopt.GetoptError:
         pass
-    exportList(fileName, watching, complete, plan_to_watch, hold, drop, not_interested)
+    exportList(fileName, watching, completed, plan_to_watch, hold, drop, not_interested)
 
 
 if __name__ == '__main__':
