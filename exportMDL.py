@@ -1,5 +1,3 @@
-#!/venv/bin/python
-
 import os
 import requests
 import sys
@@ -15,7 +13,6 @@ siteRoot = 'https://mydramalist.com'
 configDir = os.path.abspath(os.path.join(os.path.realpath(__file__), '..', 'config.conf'))
 config = ConfigParser()
 config.read(configDir)
-
 logDir = os.path.expanduser(config['DIRECTORIES']['log'])  # Directory to export file to
 
 
@@ -50,8 +47,7 @@ def login():
         details, keys = loginFail(details)
         attempt += 1
     if not keys and attempt == 3:
-        print('Failed to login\nCheck username and password again.')
-        sys.exit()
+        sys.exit('Failed to login\nCheck username and password again.')
     else:
         print('Successfully logged in')
     return keys
@@ -97,7 +93,7 @@ def paramHeaders(keys, refererURL, undef=False):
     return headers, parameters
 
 
-def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True, drop=True, not_interested=True,
+def dramaList(keys, watching=True, completed=True, plan_to_watch=True, hold=True, drop=True, not_interested=True,
               suppress=False):
     profileLink = f"{siteRoot}/profile"
     headers, parameters = paramHeaders(keys, profileLink)
@@ -105,7 +101,7 @@ def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True,
     listSoup = soup(listLink, headers=headers, cookies=keys)
     lists = {
         'watching': listSoup.find(id='list_1') if watching else None,
-        'completed': listSoup.find(id='list_2') if complete else None,
+        'completed': listSoup.find(id='list_2') if completed else None,
         'plan_to_watch': listSoup.find(id='list_3') if plan_to_watch else None,
         'on_hold': listSoup.find(id='list_4') if hold else None,
         'dropped': listSoup.find(id='list_5') if drop else None,
@@ -141,7 +137,7 @@ def dramaList(keys, watching=True, complete=True, plan_to_watch=True, hold=True,
                     'total': int(show.find(class_='episode-total').text) if show.find(class_='episode-seen') else 0,
                 } for show in lists[key].tbody.find_all('tr')
             }
-        except KeyError:
+        except (AttributeError, KeyError):
             lists[key] = None
 
     totalShows = len([i for j in lists if lists[j] for i in lists[j]])
@@ -156,11 +152,14 @@ def exportList(fileName, watching, completed, plan_to_watch, hold, drop, not_int
     keys = login()
     myDramaList = dramaList(keys, watching, completed, plan_to_watch, hold, drop, not_interested)
     with open(os.path.join(logDir, f"{fileName}.tsv"), 'w', encoding='utf-8-sig') as e:
-        e.write(f"Title\tStatus\tEpisodes watched\tTotal episodes\tCountry of Origin\t"
-                f"Show type\tRating\tStarted on\tEnded on\tRe-watched\n")
+        e.write(f"Title\tStatus\tEpisodes watched\tTotal episodes\t"
+                f"Country of Origin\tShow type\tRating\t"
+                f"Started on\t"
+                f"Ended on\tRe-watched\n")
         e.writelines([
-            f"{show['title']}\t{status.replace('_',' ').capitalize()}\t{show['progress']}\t{show['total']}\t{show['country']}\t"
-            f"{show['type']}\t{show['rating']}\t{str(show['date-start']).split(' ')[0] if show['date-start'] else ''}\t"
+            f"{show['title']}\t{status.replace('_',' ').capitalize()}\t{show['progress']}\t{show['total']}\t"
+            f"{show['country']}\t{show['type']}\t{show['rating']}\t"
+            f"{str(show['date-start']).split(' ')[0] if show['date-start'] else ''}\t"
             f"{str(show['date-end']).split(' ')[0] if show['date-end'] else ''}\t{show['rewatched']}\n"
             for status in myDramaList if myDramaList[status] for show in myDramaList[status].values()
         ])
