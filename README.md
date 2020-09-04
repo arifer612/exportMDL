@@ -84,13 +84,13 @@ When importing into Microsoft Excel, I highly recommend that you do not use the 
 with a fresh sheet and under the Data Ribbon, choose to import "From Text/CSV". An import manager will pop up, just
 okay it and you're done.
 
-![Microsoft Excel Ribbon](https://i.imgur.com/xTB1qzp.png)
+![Microsoft Excel Ribbon](https://i.imgur.com/xTB1qzp.png "Microsoft Excel Example")
 
 ### Using Google Sheets
-When importing into Google Sheets, the import manager will pop up to query the necessary import rules. Use the 
-following rules:
+When importing into Google Sheets, the import manager will pop up to query the necessary import rules. You can import it
+with the default rules:
 
-![Google Sheets](https://i.imgur.com/EDTnqGe.png "Google Sheets Example")
+![Google Sheets](https://i.imgur.com/NSxQFsX.png "Google Sheets Example")
 
 ### Using LibreOffice Calc
 When importing using LibreOffice Calc, the import manager will pop up to query the necessary import rules. Use the
