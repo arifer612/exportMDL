@@ -50,7 +50,7 @@ Optional arguments you may use:
     -o --only <category1,category2...>          Specifies list category. Categories MUST be separated by a comma without spaces
     -e --exceptions <excption1,exception2...>   Specifies list category exceptions. Exceptions MUST be separated by a comma without spaces.
                                                 
-                The available category options are: (watching, complete, hold, drop, plan_to_watch, not_interested)
+                The available category options are: (watching, completed, hold, drop, plan_to_watch, not_interested)
                                                     
     -h --help                                   Shows the help pages
     
