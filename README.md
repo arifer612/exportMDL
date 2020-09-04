@@ -80,7 +80,11 @@ The drama list will be exported as a _.tsv_ file. You may choose to import the f
 software such as Excel, LibreOffice Calc, or Google Sheets.
 
 ### Using Microsoft Excel
-Simply drag and drop the .tsv file Microsoft Excel and it will automatically import the data.
+When importing into Microsoft Excel, I highly recommend that you do not use the default import manager. Instead, start
+with a fresh sheet and under the Data Ribbon, choose to import "From Text/CSV". An import manager will pop up, just
+okay it and you're done.
+
+![Microsoft Excel Ribbon](https://i.imgur.com/xTB1qzp.png)
 
 ### Using Google Sheets
 When importing into Google Sheets, the import manager will pop up to query the necessary import rules. Use the 
