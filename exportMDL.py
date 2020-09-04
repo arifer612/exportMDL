@@ -51,6 +51,7 @@ def login():
         attempt += 1
     if not keys and attempt == 3:
         print('Failed to login\nCheck username and password again.')
+        sys.exit()
     else:
         print('Successfully logged in')
     return keys
