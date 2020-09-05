@@ -99,7 +99,7 @@ following rules:
 ![LibreOffice Calc](https://i.imgur.com/2rTOl29.png "LibreOffice Calc Example")
 
 ## First-time Users
-If this is your first time using Python, I recommend you fohttps://i.imgur.com/nOAuaM8.pngllow the following steps.
+If this is your first time using Python, I recommend you follow the following steps.
 
 #### Download
 Download the latest version of Python here(https://www.python.org/downloads/)
@@ -119,7 +119,7 @@ Once the Powershell/terminal/bash has started, you can start using the codes abo
 ![pip](https://i.imgur.com/RCTwY3u.png)
 ![python](https://i.imgur.com/RCTwY3u.png)
 
-If you have not set your login details in the configuration file (you can do so through [here](#edit-the-configuration-file)), you will be prompted to key in your login details like this. Do note that you cannot copy and paste your password into the terminal on Windows.
+If you have not set your login details in the configuration file (you can do so through [here](#edit-the-configuration-file)), you will be prompted to key in your login details like this. Do note that you cannot copy and paste your password into the terminal on Windows and it will not show any asterisks or symbols as you type your password.
 ![login](https://i.imgur.com/kNfQMIy.png)
 
 #### Edit the configuration file
