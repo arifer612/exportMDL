@@ -64,11 +64,11 @@ Saves everything on your drama list except for those that are marked under the '
     
 
 ### Configuration
-Set the save directory for the export file in _config.conf_ as in the following manner:
+Set the save directory for the export file in `exportMDL.ini` as in the following manner:
 
     log = C:\Desktop
     
-Set login details in _config.conf_ as in the following manner:
+Set login details in `exportMDL.ini` as in the following manner:
     
     username = user@email.com
     password = P@sSw0rd
@@ -76,8 +76,9 @@ Set login details in _config.conf_ as in the following manner:
 You may opt to leave these blank. 
 
 ## Importing export file
-The drama list will be exported as a _.tsv_ file. You may choose to import the files onto your local data management
-software such as Excel, LibreOffice Calc, or Google Sheets.
+The drama list will be exported as a .csv file. It should be directly importable without a need for a complicated
+import process. You may choose to import the files onto your local data management software such as Excel, LibreOffice 
+Calc, or Google Sheets.
 
 ### Using Microsoft Excel
 When importing into Microsoft Excel, I highly recommend that you do not use the default import manager. Instead, start
@@ -99,7 +100,7 @@ following rules:
 ![LibreOffice Calc](https://i.imgur.com/2rTOl29.png "LibreOffice Calc Example")
 
 ## First-time Users
-If this is your first time using Python, I recommend you follow the following steps.
+If this is your first time using Python, I recommend you fohttps://i.imgur.com/nOAuaM8.pngllow the following steps.
 
 #### Download
 Download the latest version of Python here(https://www.python.org/downloads/)
@@ -119,7 +120,7 @@ Once the Powershell/terminal/bash has started, you can start using the codes abo
 ![pip](https://i.imgur.com/RCTwY3u.png)
 ![python](https://i.imgur.com/RCTwY3u.png)
 
-If you have not set your login details in the configuration file (you can do so through [here](#edit-the-configuration-file)), you will be prompted to key in your login details like this. Do note that you cannot copy and paste your password into the terminal on Windows and it will not show any asterisks or symbols as you type your password.
+If you have not set your login details in the configuration file (you can do so through [here](#edit-the-configuration-file)), you will be prompted to key in your login details like this. Do note that you cannot copy and paste your password into the terminal on Windows.
 ![login](https://i.imgur.com/kNfQMIy.png)
 
 #### Edit the configuration file
